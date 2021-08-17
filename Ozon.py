@@ -3,7 +3,7 @@ import time
 from selenium import webdriver
 
 
-class Ozon:
+class OzonUtils:
     def parse_page(self, driver):
         blocks = driver.find_elements_by_xpath("//div[@class='e3f5']")
         for i in range(8):

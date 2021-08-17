@@ -26,7 +26,7 @@ class Excel:
                                                                      end_color=color,
                                                                      fill_type='solid')
 
-    def width_as_header(self):
+    def adjust_column_width(self):
         for column_cells in self.ws.columns:
             length = len(str(column_cells[0].value))
             self.ws.column_dimensions[get_column_letter(column_cells[0].column)].width = length + 2

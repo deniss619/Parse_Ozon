@@ -8,10 +8,12 @@ from platform import python_version
 
 
 class Email:
-    def __init__(self, server, user, password, recipients, subject, text):
-        self.server = server
-        self.user = user
-        self.password = password
+    SERVER = 'smtp.gmail.com'
+    USER = 'email@gmail.com'
+    PASSWORD = 'password'
+    # заменить USER и PASSWORD на настоящие
+
+    def __init__(self, recipients, subject, text):
         self.recipients = recipients
         self.subject = subject
         self.text = text
@@ -19,10 +21,10 @@ class Email:
 
     def generate_mail(self):
         self.msg['Subject'] = self.subject
-        self.msg['From'] = 'Python script <' + self.user + '>'
+        self.msg['From'] = 'Python script <' + self.USER + '>'
         self.msg['To'] = ', '.join(self.recipients)
-        self.msg['Reply-To'] = self.user
-        self.msg['Return-Path'] = self.user
+        self.msg['Reply-To'] = self.USER
+        self.msg['Return-Path'] = self.USER
         self.msg['X-Mailer'] = 'Python/' + (python_version())
         part_text = MIMEText(self.text, 'plain')
         self.msg.attach(part_text)
@@ -38,7 +40,7 @@ class Email:
         self.msg.attach(part_html)
 
     def send_mail(self):
-        mail = smtplib.SMTP_SSL(self.server)
-        mail.login(self.user, self.password)
-        mail.sendmail(self.user, self.recipients, self.msg.as_string())
+        mail = smtplib.SMTP_SSL(self.SERVER)
+        mail.login(self.USER, self.PASSWORD)
+        mail.sendmail(self.USER, self.recipients, self.msg.as_string())
         mail.quit()
